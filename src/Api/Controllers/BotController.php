@@ -1,13 +1,12 @@
 <?php
 
-
 namespace ZnLib\Telegram\Api\Controllers;
 
-use ZnLib\Telegram\Domain\Entities\RequestEntity;
+use ZnLib\Telegram\Domain\Handlers\DialogEventHandler2;
 use ZnLib\Telegram\Domain\Services\BotService;
 use ZnLib\Telegram\Domain\Services\RequestService;
 use ZnLib\Telegram\Domain\Services\ResponseService;
-use App\Dialog\Domain\Handlers\DialogEventHandler2;
+use ZnLib\Telegram\Domain\Services\RouteService;
 
 class BotController
 {
@@ -20,11 +19,15 @@ class BotController
     /** @var BotService */
     private $botService;
 
-    public function __construct(RequestService $requestService, ResponseService $responseService, BotService $botService)
+    /** @var RouteService */
+    private $routeService;
+
+    public function __construct(RequestService $requestService, ResponseService $responseService, BotService $botService, RouteService $routeService)
     {
         $this->requestService = $requestService;
         $this->responseService = $responseService;
         $this->botService = $botService;
+        $this->routeService = $routeService;
         $this->beforeAction();
     }
 
@@ -39,16 +42,14 @@ class BotController
         $requestEntity = $this->requestService->getRequest();
         if ($requestEntity->getMessage()) {
             if ($requestEntity->getMessage()->getChat()->getType() == "private") {
-                $handler = new DialogEventHandler2;
-                $handler->onUpdateNewMessage($requestEntity);
+                $this->routeService->onUpdateNewMessage($requestEntity);
             }
         } elseif ($requestEntity->getCallbackQuery()) {
-            $handler = new DialogEventHandler2;
-            $handler->onUpdateNewMessage($requestEntity);
+            $this->routeService->onUpdateNewMessage($requestEntity);
         }
     }
 
-    private function router(RequestEntity $requestEntity)
+    /*private function router(RequestEntity $requestEntity)
     {
         // проверяем на объект Message https://core.telegram.org/bots/api#message
         if (array_key_exists("message", $this->data)) {
@@ -63,5 +64,5 @@ class BotController
         } else {
             return false;
         }
-    }
+    }*/
 }

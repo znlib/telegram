@@ -2,12 +2,10 @@
 
 namespace ZnLib\Telegram\Domain\Actions;
 
-use ZnLib\Telegram\Domain\Entities\RequestEntity;
 use ZnLib\Telegram\Domain\Base\BaseAction;
-use ZnLib\Telegram\Domain\Base\BaseAction2;
-use ZnLib\Telegram\Domain\Entities\MessageEntity;
+use ZnLib\Telegram\Domain\Entities\RequestEntity;
 
-class EchoAction extends BaseAction2
+class EchoAction extends BaseAction
 {
 
     public function run(RequestEntity $requestEntity)

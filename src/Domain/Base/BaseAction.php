@@ -2,15 +2,12 @@
 
 namespace ZnLib\Telegram\Domain\Base;
 
+use Illuminate\Container\Container;
 use ZnLib\Telegram\Domain\Entities\RequestEntity;
 use ZnLib\Telegram\Domain\Services\ResponseService;
 use ZnLib\Telegram\Domain\Services\SessionService;
 use ZnLib\Telegram\Domain\Services\StateService;
 use ZnLib\Telegram\Domain\Services\UserService;
-use danog\MadelineProto\APIFactory;
-use danog\MadelineProto\messages;
-use Illuminate\Container\Container;
-use ZnLib\Telegram\Domain\Entities\MessageEntity;
 
 abstract class BaseAction
 {
@@ -34,7 +31,8 @@ abstract class BaseAction
         //$this->response = new ResponseService($messages, $container->get(UserService::class));
     }
 
-    public function stateName() {
+    public function stateName()
+    {
         return null;
     }
 

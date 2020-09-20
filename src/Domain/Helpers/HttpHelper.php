@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ZnLib\Telegram\Domain\Helpers;
-
 
 class HttpHelper
 {

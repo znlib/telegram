@@ -18,6 +18,22 @@ class MatchHelper
         return self::matchArray($text, $needleArray);
     }
 
+    public static function isMatchText(string $text, string $needle): bool
+    {
+        $needleArray = [
+            $needle
+        ];
+        return self::matchArray($text, $needleArray);
+    }
+
+    public static function prepareString(string $text): string
+    {
+        $text = mb_strtolower($text);
+        $text = StringHelper::removeDoubleSpace($text);
+        $text = trim($text);
+        return $text;
+    }
+
     private static function matchArray(string $text, array $needleArray) {
         $text = self::prepareString($text);
         foreach ($needleArray as $needleItem) {
@@ -41,27 +57,10 @@ class MatchHelper
         return $isFound;
     }
 
-    public static function isMatchText(string $text, string $needle): bool
-    {
-        $needleArray = [
-            $needle
-        ];
-        return self::matchArray($text, $needleArray);
-    }
-
     private static function stringToArray(string $text): array
     {
         $text = self::prepareString($text);
         $array = StringHelper::getWordArray($text);
         return $array;
     }
-
-    public static function prepareString(string $text): string
-    {
-        $text = mb_strtolower($text);
-        $text = StringHelper::removeDoubleSpace($text);
-        $text = trim($text);
-        return $text;
-    }
-
 }

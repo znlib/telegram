@@ -41,6 +41,6 @@ class Bot
         if (empty(self::$responseService)) {
             self::$responseService = BotFacade::getResponseService($_ENV['DUMPER_BOT_TOKEN']);
         }
-        self::$responseService->sendMessage($chatId, $messageData);
+        self::$responseService->sendMessage($chatId, $messageText);
     }
 }

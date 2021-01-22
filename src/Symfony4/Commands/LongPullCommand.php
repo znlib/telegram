@@ -9,6 +9,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
+use ZnLib\Telegram\Domain\Repositories\File\ConfigRepository;
 use ZnLib\Telegram\Domain\Repositories\File\StoreRepository;
 use ZnLib\Telegram\Domain\Repositories\Http\UpdatesRepository;
 use ZnLib\Telegram\Domain\Services\LongPullService;
@@ -18,16 +19,19 @@ class LongPullCommand extends Command
 
     protected static $defaultName = 'telegram:long-pull';
     protected $longPullService;
+    protected $configRepository;
 
-    public function __construct(string $name = null)
+    public function __construct(string $name = null, LongPullService $longPullService, ConfigRepository $configRepository)
     {
         parent::__construct($name);
-        $this->longPullService = new LongPullService();
+        $this->longPullService = $longPullService;
+        $this->configRepository = $configRepository;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('<fg=white># Long pull</>');
+        $output->writeln('<fg=white>timeout:</> <fg=yellow>'.$this->configRepository->getBotConfig('timeout', 5).' second</>');
         while (true) {
             $output->writeln('<fg=white>wait...</>');
             $updates = $this->longPullService->all();

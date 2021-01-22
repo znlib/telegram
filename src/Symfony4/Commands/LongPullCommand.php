@@ -8,6 +8,8 @@ use GuzzleHttp\RequestOptions;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use ZnCore\Base\Exceptions\InternalServerErrorException;
+use ZnCore\Base\Helpers\EnvHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnLib\Telegram\Domain\Repositories\File\ConfigRepository;
 use ZnLib\Telegram\Domain\Repositories\File\StoreRepository;
@@ -33,17 +35,21 @@ class LongPullCommand extends Command
         $output->writeln('<fg=white># Long pull</>');
         $output->writeln('<fg=white>timeout:</> <fg=yellow>'.$this->configRepository->getBotConfig('timeout', 5).' second</>');
         while (true) {
-            $output->writeln('<fg=white>wait...</>');
+            if(EnvHelper::isDebug()) {
+                $output->writeln('<fg=white>wait...</>');
+            }
             $updates = $this->longPullService->all();
             if ($updates) {
-                $output->writeln('<fg=green>has updates</>');
+                //$output->writeln('<fg=green>has updates</>');
                 foreach ($updates as $update) {
                     $output->write('<fg=default> ' . $update['update_id'] . ' ... </>');
-                    $this->longPullService->runBot($update);
-                    $output->writeln('<fg=green>OK</>');
+                    try {
+                        $this->longPullService->runBot($update);
+                        $output->writeln('<fg=green>OK</>');
+                    } catch (InternalServerErrorException $e) {
+                        $output->writeln('<fg=red>FAIL</>');
+                    }
                 }
-            } else {
-                $output->writeln('<fg=default>empty</>');
             }
         }
         return Command::SUCCESS;

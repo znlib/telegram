@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\RequestOptions;
 use Psr\Log\LoggerInterface;
+use ZnCore\Base\Exceptions\InternalServerErrorException;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Domain\Helpers\EntityHelper;
 use ZnLib\Telegram\Domain\Repositories\File\ConfigRepository;
@@ -41,7 +42,7 @@ class LongPullService
         return $updates;
     }
     
-    public function setHandled($update) {
+    public function setHandled(array $update) {
         $this->storeRepository->setLastId($update['update_id']);
     }
 
@@ -51,7 +52,7 @@ class LongPullService
         }
     }
 
-    public function runBot($update)
+    public function runBot(array $update)
     {
         $token = $this->configRepository->getBotConfig('token');
         $botUrl = "http://telegram-client.tpl/bot.php?token={$token}";
@@ -60,10 +61,13 @@ class LongPullService
             $response = $client->post($botUrl, [
                 RequestOptions::JSON => $update
             ]);
+            $this->setHandled($update);
         } catch (ServerException $e) {
+            $this->setHandled($update);
             $response = $e->getResponse();
-            dump($response->getBody()->getContents());
+            $message = $response->getBody()->getContents();
+            $this->logger->error($message, ['request' => $update]);
+            throw new InternalServerErrorException($message);
         }
-        $this->setHandled($update);
     }
 }

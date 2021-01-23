@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 use ZnCore\Base\Exceptions\InternalServerErrorException;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Domain\Helpers\EntityHelper;
+use ZnLib\Telegram\Domain\Helpers\RequestHelper;
 use ZnLib\Telegram\Domain\Repositories\File\ConfigRepository;
 use ZnLib\Telegram\Domain\Repositories\File\StoreRepository;
 use ZnLib\Telegram\Domain\Repositories\Http\UpdatesRepository;
@@ -21,17 +22,42 @@ class LongPullService
     protected $configRepository;
     protected $logger;
     
+    /** @var RequestService */
+    private $requestService;
+
+    /** @var ResponseService */
+    private $responseService;
+
+    /** @var BotService */
+    private $botService;
+
+    /** @var RouteService */
+    private $routeService;
+
     public function __construct(
         StoreRepository $storeRepository, 
         UpdatesRepository $updatesRepository,
         ConfigRepository $configRepository,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+
+        RequestService $requestService,
+        ResponseService $responseService,
+        BotService $botService,
+        RouteService $routeService
     )
     {
         $this->storeRepository = $storeRepository;
         $this->updatesRepository = $updatesRepository;
         $this->configRepository = $configRepository;
         $this->logger = $logger;
+
+        $this->requestService = $requestService;
+        $this->responseService = $responseService;
+        $this->botService = $botService;
+        $this->routeService = $routeService;
+
+        $token = $this->configRepository->getBotConfig('token');
+        $this->botService->authByToken($token);
     }
 
     public function all() {
@@ -52,7 +78,20 @@ class LongPullService
         }
     }
 
-    public function runBot(array $update)
+    public function runBotFromService(array $update)
+    {
+        $requestEntity = RequestHelper::forgeRequestEntityFromUpdateArray($update);
+        if ($requestEntity->getMessage()) {
+            if ($requestEntity->getMessage()->getChat()->getType() == "private") {
+                $this->routeService->onUpdateNewMessage($requestEntity);
+            }
+        } elseif ($requestEntity->getCallbackQuery()) {
+            $this->routeService->onUpdateNewMessage($requestEntity);
+        }
+        $this->setHandled($update);
+    }
+    
+    public function runBotFromHttp(array $update)
     {
         $token = $this->configRepository->getBotConfig('token');
         $botUrl = "http://telegram-client.tpl/bot.php?token={$token}";

@@ -22,7 +22,12 @@ class BotController
     /** @var RouteService */
     private $routeService;
 
-    public function __construct(RequestService $requestService, ResponseService $responseService, BotService $botService, RouteService $routeService)
+    public function __construct(
+        RequestService $requestService, 
+        ResponseService $responseService, 
+        BotService $botService, 
+        RouteService $routeService
+    )
     {
         $this->requestService = $requestService;
         $this->responseService = $responseService;

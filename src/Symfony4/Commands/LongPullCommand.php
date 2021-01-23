@@ -38,7 +38,7 @@ class LongPullCommand extends Command
                 foreach ($updates as $update) {
                     $output->write('<fg=default> ' . $update['update_id'] . ' ... </>');
                     try {
-                        $this->longPullService->runBot($update);
+                        $this->longPullService->runBotFromService($update);
                         $output->writeln('<fg=green>OK</>');
                     } catch (InternalServerErrorException $e) {
                         $output->writeln('<fg=red>FAIL</>');

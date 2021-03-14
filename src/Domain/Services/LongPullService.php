@@ -56,14 +56,14 @@ class LongPullService
         $this->botService = $botService;
         $this->routeService = $routeService;
 
-        $token = $this->configRepository->getBotConfig('token');
+        $token = $this->configRepository->getBotToken();
         $this->botService->authByToken($token);
     }
 
     public function all() {
         $lastId = $this->storeRepository->getLastId();
-        $token = $this->configRepository->getBotConfig('token');
-        $timeout = $this->configRepository->getBotConfig('timeout', 5);
+        $token = $this->configRepository->getBotToken();
+        $timeout = $this->configRepository->getLongpullTimeout();
         $updates = $this->updatesRepository->all($token, $lastId + 1, $timeout);
         return $updates;
     }
@@ -93,7 +93,7 @@ class LongPullService
     
     public function runBotFromHttp(array $update)
     {
-        $token = $this->configRepository->getBotConfig('token');
+        $token = $this->configRepository->getBotToken();
         $botUrl = "http://telegram-client.tpl/bot.php?token={$token}";
         $client = new Client();
         try {

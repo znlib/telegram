@@ -27,7 +27,7 @@ class LongPullCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('<fg=white># Long pull</>');
-        $output->writeln('<fg=white>timeout:</> <fg=yellow>' . $this->configRepository->getBotConfig('timeout', 5) . ' second</>');
+        $output->writeln('<fg=white>timeout:</> <fg=yellow>' . $this->configRepository->getLongpullTimeout() . ' second</>');
         while (true) {
             if (EnvHelper::isDebug()) {
                 $output->writeln('<fg=white>wait...</>');

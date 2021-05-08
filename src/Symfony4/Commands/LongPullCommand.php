@@ -37,7 +37,13 @@ class LongPullCommand extends Command
                 //$output->writeln('<fg=green>has updates</>');
                 foreach ($updates as $update) {
 //                    dd($update['message']['from']['id']);
-                    $line = $update['update_id'] . ' from ' . $update['message']['chat']['id'] . ' (' . $update['message']['chat']['username'] . ')';
+                    $line = $update['update_id'] . ' from ' . $update['message']['chat']['id'];
+                    //dd($update['message']['chat']);
+                    if(isset($update['message']['chat']['username'])) {
+                        $line .= ' (@' . $update['message']['chat']['username'] . ')';
+                    } elseif ($update['message']['chat']['first_name']) {
+                        $line .= ' (' . $update['message']['chat']['first_name'] . ')';
+                    }
                     $output->write('<fg=default> ' . $line . ' ... </>');
                     try {
                         $this->longPullService->runBotFromService($update);

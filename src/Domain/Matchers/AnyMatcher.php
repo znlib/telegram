@@ -10,6 +10,9 @@ class AnyMatcher implements MatcherInterface
 
     public function isMatch(RequestEntity $requestEntity): bool
     {
+        if($requestEntity->getMessage()->getText() == '') {
+            return false;
+        }
         return true;
     }
 

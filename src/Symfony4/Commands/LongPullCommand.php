@@ -48,8 +48,9 @@ class LongPullCommand extends Command
                     try {
                         $this->longPullService->runBotFromService($update);
                         $output->writeln('<fg=green>OK</>');
-                    } catch (InternalServerErrorException $e) {
-                        $output->writeln('<fg=red>FAIL</>');
+                    } catch (\Throwable $e) {
+                        $this->longPullService->setHandled($update);
+                        $output->writeln('<fg=red>FAIL '.$e->getMessage().'</>');
                     }
                 }
             }

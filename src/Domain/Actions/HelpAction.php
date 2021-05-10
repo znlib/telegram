@@ -32,5 +32,4 @@ class HelpAction extends BaseAction
         }
         return $this->response->sendMessage(implode(PHP_EOL . PHP_EOL, $lines), $messageEntity->getUserId());
     }
-
 }

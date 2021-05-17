@@ -28,14 +28,19 @@ class RouteService
         $this->handleMessage($requestEntity);
     }
 
+    public function setDefinitions(array $definitions)
+    {
+        $this->_definitions = $definitions;
+    }
+
     /**
      * @param $requestEntity
      * @return mixed
      */
     private function handleMessage(RequestEntity $requestEntity)
     {
-        $definisions = $this->getDefinisions();
-        foreach ($definisions as $item) {
+        $definitions = $this->getDefinitions();
+        foreach ($definitions as $item) {
             //$isActive = empty($item['state']) || ($item['state'] == '*' && !empty($action)) || ($item['state'] == $action);
             $isActive = 1;
             if ($isActive) {
@@ -52,12 +57,7 @@ class RouteService
         return null;
     }
 
-    public function setDefinitions(array $definitions)
-    {
-        $this->_definitions = $definitions;
-    }
-
-    private function getDefinisions()
+    private function getDefinitions()
     {
         if (empty($this->_definitions)) {
             $this->_definitions = $this->definitions();

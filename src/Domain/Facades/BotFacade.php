@@ -17,8 +17,13 @@ class BotFacade
     {
         /** @var Container $container */
         $container = ContainerHelper::getContainer();
-        $container->singleton(ResponseRepositoryInterface::class, ResponseRepository::class);
-        $container->singleton(BotService::class, BotService::class);
+
+        $containerConfigurator = ContainerHelper::getContainerConfigurator();
+        $containerConfigurator->singleton(ResponseRepositoryInterface::class, ResponseRepository::class);
+        $containerConfigurator->singleton(BotService::class, BotService::class);
+
+//        $container->singleton(ResponseRepositoryInterface::class, ResponseRepository::class);
+//        $container->singleton(BotService::class, BotService::class);
         $botService = $container->get(BotService::class);
         $botService->authByToken($token);
         /** @var RequestService $requestService */

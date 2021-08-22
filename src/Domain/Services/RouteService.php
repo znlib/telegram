@@ -5,6 +5,7 @@ namespace ZnLib\Telegram\Domain\Services;
 use danog\MadelineProto\APIFactory;
 use Illuminate\Container\Container;
 use ZnCore\Base\Helpers\ClassHelper;
+use ZnCore\Base\Libs\App\Helpers\ContainerHelper;
 use ZnCore\Base\Libs\InstanceProvider;
 use ZnLib\Telegram\Domain\Base\BaseAction;
 use ZnLib\Telegram\Domain\Entities\RequestEntity;
@@ -44,10 +45,14 @@ class RouteService
             //$isActive = empty($item['state']) || ($item['state'] == '*' && !empty($action)) || ($item['state'] == $action);
             $isActive = 1;
             if ($isActive) {
+                /** @var InstanceProvider $instanceProvider */
+                $instanceProvider = ContainerHelper::getContainer()->get(InstanceProvider::class);
+
                 /** @var MatcherInterface $matcherInstance */
-                $matcherInstance = InstanceProvider::createInstance($item['matcher']);
+                $matcherInstance = $instanceProvider->createInstance($item['matcher']);
                 /** @var BaseAction $actionInstance */
-                $actionInstance = InstanceProvider::createInstance($item['action']);
+                $actionInstance = $instanceProvider->createInstance($item['action']);
+
                 if ($matcherInstance->isMatch($requestEntity)) {
                     //$this->humanizeResponseDelay($requestEntity);
                     $actionInstance->run($requestEntity);

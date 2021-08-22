@@ -11,10 +11,10 @@ use ZnLib\Telegram\Domain\Subscribers\LoadTelegramRoutesSubscriber;
 class KernelFactory extends \ZnCore\Base\Libs\App\Factories\KernelFactory
 {
 
-    public static function createConsoleKernel(array $bundles = []): KernelInterface
+    public static function createConsoleKernel(array $bundles = [], $import = ['i18next', 'container', 'console', 'migration', 'telegramRoutes']): KernelInterface
     {
         self::init();
-        $bundleLoader = new BundleLoader($bundles, ['i18next', 'container', 'console', 'migration', 'telegramRoutes']);
+        $bundleLoader = new BundleLoader($bundles, $import);
         $bundleLoader->addLoaderConfig('telegramRoutes', TelegramRoutesLoader::class);
         $kernel = new Kernel('console');
         $kernel->setLoader($bundleLoader);

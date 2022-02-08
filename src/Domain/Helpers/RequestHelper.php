@@ -13,6 +13,7 @@ class RequestHelper
     public static function forgeRequestEntityFromUpdateArray(array $request)
     {
         $fromEntity = new FromEntity;
+        // todo: receive channel posts
         $fromEntity->setId($request['message']['from']['id']);
         $fromEntity->setIsBot($request['message']['from']['is_bot'] ?? false);
         $fromEntity->setFirstName($request['message']['from']['first_name']);
@@ -32,7 +33,7 @@ class RequestHelper
         $messageEntity->setChat($chatEntity);
         $messageEntity->setDate($request['message']['date']);
         $messageEntity->setText($request['message']['text']);
-
+        
         $requestEntity = new RequestEntity;
         $requestEntity->setId($request['update_id']);
         $requestEntity->setMessage($messageEntity);

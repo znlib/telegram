@@ -13,4 +13,11 @@ class Bundle extends BaseBundle
             'ZnLib\Telegram\Symfony4\Commands',
         ];
     }
+
+    public function container(): array
+    {
+        return [
+            __DIR__ . '/Domain/config/container.php',
+        ];
+    }
 }

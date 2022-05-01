@@ -22,7 +22,7 @@ return [
                 TestResponseRepository::class :
                 TelegramResponseRepository::class,
         ConfigRepository::class => function(\Psr\Container\ContainerInterface $container) {
-            $repo = new ConfigRepository($_ENV['TELEGRAM_BOT_TOKEN']);
+            $repo = new ConfigRepository($_ENV['TELEGRAM_BOT_TOKEN'] ?? null);
             
             return $repo;
         },

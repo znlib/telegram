@@ -18,7 +18,7 @@ class BotFacade
         /** @var Container $container */
         $container = ContainerHelper::getContainer();
 
-        $containerConfigurator = ContainerHelper::getContainerConfigurator();
+        $containerConfigurator = ContainerHelper::getContainerConfiguratorByContainer($container);
         $containerConfigurator->singleton(ResponseRepositoryInterface::class, ResponseRepository::class);
         $containerConfigurator->singleton(BotService::class, BotService::class);
 

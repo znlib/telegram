@@ -1,6 +1,6 @@
 <?php
 
-use ZnCore\Base\Helpers\EnvHelper;
+use ZnCore\Base\Libs\App\Helpers\EnvHelper;
 use ZnLib\Telegram\Domain\Interfaces\Repositories\ResponseRepositoryInterface;
 use ZnLib\Telegram\Domain\Repositories\Telegram\ResponseRepository as TelegramResponseRepository;
 use ZnLib\Telegram\Domain\Repositories\Test\ResponseRepository as TestResponseRepository;

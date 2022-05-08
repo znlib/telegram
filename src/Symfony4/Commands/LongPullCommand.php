@@ -6,7 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use ZnCore\Base\Exceptions\InternalServerErrorException;
-use ZnCore\Base\Helpers\EnvHelper;
+use ZnCore\Base\Libs\App\Helpers\EnvHelper;
 use ZnLib\Telegram\Domain\Repositories\File\ConfigRepository;
 use ZnLib\Telegram\Domain\Services\LongPullService;
 

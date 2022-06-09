@@ -12,7 +12,7 @@ use ZnCore\Base\Libs\App\Helpers\EnvHelper;
 use ZnCore\Base\Libs\Container\Traits\ContainerAwareTrait;
 use ZnLib\Telegram\Domain\Repositories\File\ConfigRepository;
 use ZnLib\Telegram\Domain\Services\LongPullService;
-use ZnSandbox\Sandbox\Process\Traits\LockTrait;
+use ZnLib\Console\Symfony4\Traits\LockTrait;
 
 class LongPullCommand extends Command
 {

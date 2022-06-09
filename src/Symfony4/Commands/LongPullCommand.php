@@ -14,6 +14,7 @@ use ZnCore\Base\Libs\Container\Traits\ContainerAwareTrait;
 use ZnLib\Telegram\Domain\Repositories\File\ConfigRepository;
 use ZnLib\Telegram\Domain\Services\LongPullService;
 use ZnSandbox\Sandbox\Process\Libs\LoopCron;
+use React\EventLoop\Loop;
 
 class LongPullCommand extends Command
 {
@@ -42,25 +43,35 @@ class LongPullCommand extends Command
         $output->writeln('<fg=white># Long pull</>');
         $output->writeln('<fg=white>timeout:</> <fg=yellow>' . $this->configRepository->getLongpullTimeout() . ' second</>');
 
-
-
         $name = 'telegramBot.longPull';
         $callback = function () use ($input, $output) {
             $this->runItem($input, $output);
         };
 
-        /** @var LoopCron $cron */
-        $cron = InstanceHelper::create(LoopCron::class, [
-            'name' => $name,
-        ], $this->getContainer());
-        $cron->setSleepIntervalMicrosecond(null);
-        $cron->setCallback($callback);
 
-        try {
-            $cron->start();
-        } catch (LockConflictedException $e) {
-            $output->writeln($e->getMessage());
-        }
+
+        // todo: locker
+        $loop = Loop::get();
+        $loop->addPeriodicTimer(0, $callback);
+        $loop->run();
+
+
+
+
+
+//
+//        /** @var LoopCron $cron */
+//        $cron = InstanceHelper::create(LoopCron::class, [
+//            'name' => $name,
+//        ], $this->getContainer());
+//        $cron->setSleepIntervalMicrosecond(null);
+//        $cron->setCallback($callback);
+//
+//        try {
+//            $cron->start();
+//        } catch (LockConflictedException $e) {
+//            $output->writeln($e->getMessage());
+//        }
 
 
         /*while (true) {

@@ -3,23 +3,22 @@
 namespace ZnLib\Telegram\Symfony4\Commands;
 
 use Psr\Container\ContainerInterface;
+use React\EventLoop\Loop;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Lock\Exception\LockConflictedException;
-use ZnCore\Base\Exceptions\InternalServerErrorException;
-use ZnCore\Base\Helpers\InstanceHelper;
+use Symfony\Component\Lock\LockFactory;
 use ZnCore\Base\Libs\App\Helpers\EnvHelper;
 use ZnCore\Base\Libs\Container\Traits\ContainerAwareTrait;
 use ZnLib\Telegram\Domain\Repositories\File\ConfigRepository;
 use ZnLib\Telegram\Domain\Services\LongPullService;
-use ZnSandbox\Sandbox\Process\Libs\LoopCron;
-use React\EventLoop\Loop;
+use ZnSandbox\Sandbox\Process\Traits\LockTrait;
 
 class LongPullCommand extends Command
 {
 
     use ContainerAwareTrait;
+    use LockTrait;
 
     protected static $defaultName = 'telegram:long-pull';
     protected $longPullService;
@@ -29,56 +28,35 @@ class LongPullCommand extends Command
         string $name = null,
         LongPullService $longPullService,
         ConfigRepository $configRepository,
+        LockFactory $lockFactory,
         ContainerInterface $container
     )
     {
         parent::__construct($name);
         $this->longPullService = $longPullService;
         $this->configRepository = $configRepository;
+        $this->setLockFactory($lockFactory);
         $this->setContainer($container);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('<fg=white># Long pull</>');
-        $output->writeln('<fg=white>timeout:</> <fg=yellow>' . $this->configRepository->getLongpullTimeout() . ' second</>');
-
+        $output->writeln('');
         $name = 'telegramBot.longPull';
+        $this->runProcessWithLock($input, $output, $name);
+
+        return Command::SUCCESS;
+    }
+
+    protected function runProcess(InputInterface $input, OutputInterface $output): void {
+        $output->writeln('<fg=white>timeout:</> <fg=yellow>' . $this->configRepository->getLongpullTimeout() . ' second</>');
         $callback = function () use ($input, $output) {
             $this->runItem($input, $output);
         };
-
-
-
-        // todo: locker
         $loop = Loop::get();
         $loop->addPeriodicTimer(0, $callback);
         $loop->run();
-
-
-
-
-
-//
-//        /** @var LoopCron $cron */
-//        $cron = InstanceHelper::create(LoopCron::class, [
-//            'name' => $name,
-//        ], $this->getContainer());
-//        $cron->setSleepIntervalMicrosecond(null);
-//        $cron->setCallback($callback);
-//
-//        try {
-//            $cron->start();
-//        } catch (LockConflictedException $e) {
-//            $output->writeln($e->getMessage());
-//        }
-
-
-        /*while (true) {
-            $this->runItem($input, $output);
-        }*/
-
-        return Command::SUCCESS;
     }
 
     public function runItem(InputInterface $input, OutputInterface $output) {

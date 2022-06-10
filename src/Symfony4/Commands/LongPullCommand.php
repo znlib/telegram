@@ -6,9 +6,11 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Lock\Exception\LockAcquiringException;
 use Symfony\Component\Lock\LockFactory;
 use ZnCore\Base\Libs\App\Helpers\EnvHelper;
 use ZnCore\Base\Libs\Container\Traits\ContainerAwareTrait;
+use ZnLib\Console\Symfony4\Traits\IOTrait;
 use ZnLib\Console\Symfony4\Traits\LockTrait;
 use ZnLib\Console\Symfony4\Traits\LoopTrait;
 use ZnLib\Telegram\Domain\Repositories\File\ConfigRepository;
@@ -20,6 +22,7 @@ class LongPullCommand extends Command
     use ContainerAwareTrait;
     use LockTrait;
     use LoopTrait;
+    use IOTrait;
 
     protected static $defaultName = 'telegram:long-pull';
     protected $longPullService;
@@ -42,17 +45,27 @@ class LongPullCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $this->setInputOutput($input, $output);
         $output->writeln('<fg=white># Long pull</>');
         $output->writeln('');
 
         $output->writeln('<fg=white>timeout:</> <fg=yellow>' . $this->configRepository->getLongpullTimeout() . ' second</>');
         $name = 'telegramBot.longPull';
-        $this->runProcessWithLock($input, $output, $name);
+//        $this->runProcessWithLock($name);
+
+        try {
+            $this->runProcessWithLock($name);
+        } catch (LockAcquiringException $e) {
+            $output->writeln('<fg=yellow>' . $e->getMessage() . '</>');
+            $output->writeln('');
+        }
+
         return Command::SUCCESS;
     }
 
-    protected function runLoopItem(InputInterface $input, OutputInterface $output): void
+    protected function runLoopItem(): void
     {
+        $output = $this->getOutput();
         if (EnvHelper::isDebug()) {
             $output->writeln('<fg=white>wait...</>');
         }

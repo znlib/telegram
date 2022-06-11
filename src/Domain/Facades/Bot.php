@@ -16,7 +16,8 @@ class Bot
 
     public static function dump($message, int $chatId = null, bool $isEncode = true)
     {
-        self::sendMessage($message, $chatId, $isEncode);
+        $messageText = self::encodeMessage($message, $isEncode);
+        self::sendMessage($messageText, $chatId);
     }
 
     public static function send($message, int $chatId = null, bool $isEncode = true)
@@ -24,23 +25,20 @@ class Bot
         self::dump($message, $chatId, $isEncode);
     }
 
-    public static function sendAsString($message, int $chatId = null)
+    public static function sendMessage(string $messageText, int $chatId = null, $envPrefix = 'DUMPER_BOT')
     {
-        self::sendMessage($message, $chatId, false);
-    }
-
-    public static function sendMessage($messageData, int $chatId = null, bool $isEncode = true)
-    {
-        if ($isEncode) {
-            $messageText = json_encode($messageData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-        } else {
-            $messageText = $messageData;
-        }
         $chatId = $chatId ?: self::$chatId;
-        $chatId = $chatId ?: $_ENV['DUMPER_BOT_ADMIN_ID'];
+        $chatId = $chatId ?: $_ENV[$envPrefix . '_ADMIN_ID'];
         if (empty(self::$responseService)) {
-            self::$responseService = BotFacade::getResponseService($_ENV['DUMPER_BOT_TOKEN']);
+            self::$responseService = BotFacade::getResponseService($_ENV[$envPrefix . '_TOKEN']);
         }
         self::$responseService->sendMessage($chatId, $messageText);
+    }
+
+    public static function encodeMessage($messageData, bool $isEncode = true) {
+        if ($isEncode) {
+            $messageData = json_encode($messageData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        }
+        return $messageData;
     }
 }

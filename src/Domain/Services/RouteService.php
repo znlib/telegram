@@ -72,7 +72,7 @@ class RouteService
 
     private function prepareResponse(APIFactory $messages)
     {
-        $container = Container::getInstance();
+        $container = ContainerHelper::getContainer();
         /** @var ResponseService $response */
         $response = $container->get(ResponseService::class);
         $response->setApi($messages);
@@ -80,7 +80,7 @@ class RouteService
 
     private function auth($update)
     {
-        $container = Container::getInstance();
+        $container = ContainerHelper::getContainer();
         /** @var UserService $userService */
         $userService = $container->get(UserService::class);
         $userService->authByUpdate($update);
@@ -88,7 +88,7 @@ class RouteService
 
     private function getStateFromSession()
     {
-        $container = Container::getInstance();
+        $container = ContainerHelper::getContainer();
         /** @var StateService $state */
         $state = $container->get(StateService::class);
         return $state->get();

@@ -7,6 +7,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use ZnCore\Base\Libs\Container\Helpers\ContainerHelper;
 use ZnLib\Telegram\Domain\Services\BotService;
 use ZnLib\Telegram\Domain\Services\ResponseService;
 
@@ -25,7 +26,7 @@ class SendMessageCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('<fg=white># Send Message</>');
-        $container = Container::getInstance();
+        $container = ContainerHelper::getContainer();
         /** @var ResponseService $responseService */
         $responseService = $container->get(ResponseService::class);
         /** @var BotService $botService */

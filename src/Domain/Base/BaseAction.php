@@ -3,6 +3,7 @@
 namespace ZnLib\Telegram\Domain\Base;
 
 use Illuminate\Container\Container;
+use ZnCore\Base\Libs\Container\Helpers\ContainerHelper;
 use ZnLib\Telegram\Domain\Entities\RequestEntity;
 use ZnLib\Telegram\Domain\Services\ResponseService;
 use ZnLib\Telegram\Domain\Services\SessionService;
@@ -23,7 +24,7 @@ abstract class BaseAction
 
     public function __construct()
     {
-        $container = Container::getInstance();
+        $container = ContainerHelper::getContainer();
         //$this->session = $container->get(SessionService::class);
         //$this->state = $container->get(StateService::class);
         /** @var ResponseService $response */

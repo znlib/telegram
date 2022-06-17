@@ -8,6 +8,8 @@ use ZnCore\Contract\Kernel\Interfaces\KernelInterface;
 use ZnLib\Telegram\Domain\Libs\Loaders\BundleLoaders\TelegramRoutesLoader;
 use ZnLib\Telegram\Domain\Subscribers\LoadTelegramRoutesSubscriber;
 
+\ZnCore\Base\Helpers\DeprecateHelper::hardThrow();
+
 class KernelFactory extends \ZnCore\Base\Libs\App\Factories\KernelFactory
 {
 

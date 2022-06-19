@@ -3,11 +3,14 @@
 namespace ZnLib\Telegram\Domain\Subscribers;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ZnCore\Base\Helpers\DeprecateHelper;
 use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Libs\App\Enums\KernelEventEnum;
 use ZnCore\Base\Libs\App\Events\LoadConfigEvent;
 use ZnCore\Domain\Traits\EntityManagerTrait;
 use ZnLib\Telegram\Domain\Services\RouteService;
+
+DeprecateHelper::hardThrow();
 
 class LoadTelegramRoutesSubscriber implements EventSubscriberInterface
 {

@@ -2,7 +2,8 @@
 
 namespace ZnLib\Telegram\Domain\Helpers;
 
-use ZnCore\Base\Libs\Text\Helpers\StringHelper;
+
+use ZnCore\Base\Libs\Text\Helpers\TextHelper;
 
 class MatchHelper
 {
@@ -29,7 +30,7 @@ class MatchHelper
     public static function prepareString(string $text): string
     {
         $text = mb_strtolower($text);
-        $text = StringHelper::removeDoubleSpace($text);
+        $text = TextHelper::removeDoubleSpace($text);
         $text = trim($text);
         return $text;
     }
@@ -60,7 +61,7 @@ class MatchHelper
     private static function stringToArray(string $text): array
     {
         $text = self::prepareString($text);
-        $array = StringHelper::getWordArray($text);
+        $array = TextHelper::getWordArray($text);
         return $array;
     }
 }

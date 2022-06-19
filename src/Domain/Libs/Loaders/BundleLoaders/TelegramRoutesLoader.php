@@ -22,6 +22,7 @@ class TelegramRoutesLoader extends BaseLoader
                 }*/
             }
         }
+        $this->getConfigManager()->set('telegramRoutes', $config);
         return [$this->getName() => $config];
     }
 }

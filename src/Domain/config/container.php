@@ -1,5 +1,6 @@
 <?php
 
+use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
 use ZnCore\Base\Libs\App\Helpers\EnvHelper;
 use ZnLib\Telegram\Domain\Interfaces\Repositories\ResponseRepositoryInterface;
 use ZnLib\Telegram\Domain\Repositories\Telegram\ResponseRepository as TelegramResponseRepository;
@@ -16,14 +17,26 @@ return [
         BotService::class,
 //        RequestService::class, RequestService::class,
 //        ResponseService::class, ResponseService::class,
-        RouteService::class,
+//        RouteService::class,
+        RouteService::class => function(\Psr\Container\ContainerInterface $container) {
+            /** @var \ZnCore\Base\Libs\App\Interfaces\ConfigManagerInterfaceace $configManager */
+            $configManager = $container->get(\ZnCore\Base\Libs\App\Interfaces\ConfigManagerInterface::class);
+            $telegramRoutes = $configManager->get('telegramRoutes');
+            $routeService = new RouteService();
+            $routes = [];
+            foreach ($telegramRoutes as $containerConfig) {
+                $requiredConfig = require($containerConfig);
+                $routes = ArrayHelper::merge($routes, $requiredConfig);
+            }
+            $routeService->setDefinitions($routes);
+            return $routeService;
+        },
         ResponseRepositoryInterface::class =>
             EnvHelper::isTest() ?
                 TestResponseRepository::class :
                 TelegramResponseRepository::class,
         ConfigRepository::class => function(\Psr\Container\ContainerInterface $container) {
             $repo = new ConfigRepository($_ENV['TELEGRAM_BOT_TOKEN'] ?? null);
-            
             return $repo;
         },
     ],

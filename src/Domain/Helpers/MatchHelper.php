@@ -2,7 +2,7 @@
 
 namespace ZnLib\Telegram\Domain\Helpers;
 
-use ZnCore\Base\Helpers\StringHelper;
+use ZnCore\Base\Libs\Text\Helpers\StringHelper;
 
 class MatchHelper
 {

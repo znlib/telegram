@@ -13,6 +13,7 @@ class BotService
 
     public function getIdentity(): BotEntity
     {
+
         if($this->identity) {
             return $this->identity;
         } else {

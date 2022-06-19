@@ -39,6 +39,7 @@ class ResponseService
     }
 
     public function send(ResponseEntity $responseEntity) {
+
         $botEntity = $this->botService->getIdentity();
         try {
             $this->responseRepository->send($responseEntity, $botEntity);

@@ -65,9 +65,6 @@ class RouteService
 
     private function getDefinitions()
     {
-//        $cm = ContainerHelper::getContainer()->get(ConfigManagerInterface::class);
-//        dd($cm->get('telegramRoutes'));
-
         if (empty($this->_definitions)) {
             $this->_definitions = $this->definitions();
         }

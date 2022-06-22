@@ -7,7 +7,7 @@ use ZnLib\Telegram\Domain\Entities\ChatEntity;
 use ZnLib\Telegram\Domain\Entities\FromEntity;
 use ZnLib\Telegram\Domain\Entities\MessageEntity;
 use ZnLib\Telegram\Domain\Entities\RequestEntity;
-use ZnCore\Base\Libs\Entity\Helpers\EntityHelper;
+use ZnCore\Domain\Entity\Helpers\EntityHelper;
 use ZnLib\Telegram\Domain\Helpers\RequestHelper;
 
 class RequestRepository

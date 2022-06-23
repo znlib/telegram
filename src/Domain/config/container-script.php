@@ -1,9 +1,9 @@
 <?php
 
 use Psr\Container\ContainerInterface;
-use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\Libs\App\Helpers\EnvHelper;
-use ZnCore\Base\Libs\ConfigManager\Interfaces\ConfigManagerInterface;
+use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Base\App\Helpers\EnvHelper;
+use ZnCore\Base\ConfigManager\Interfaces\ConfigManagerInterface;
 use ZnLib\Telegram\Domain\Interfaces\Repositories\ResponseRepositoryInterface;
 use ZnLib\Telegram\Domain\Repositories\File\ConfigRepository;
 use ZnLib\Telegram\Domain\Repositories\Telegram\ResponseRepository as TelegramResponseRepository;

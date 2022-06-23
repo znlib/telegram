@@ -3,7 +3,7 @@
 namespace ZnLib\Telegram\Domain\Helpers;
 
 
-use ZnCore\Base\Libs\Text\Helpers\TextHelper;
+use ZnCore\Base\Text\Helpers\TextHelper;
 
 class MatchHelper
 {

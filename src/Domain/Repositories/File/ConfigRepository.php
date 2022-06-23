@@ -3,8 +3,8 @@
 
 namespace ZnLib\Telegram\Domain\Repositories\File;
 
-use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\Libs\Store\StoreFile;
+use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Base\Store\StoreFile;
 
 class ConfigRepository
 {

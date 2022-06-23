@@ -4,8 +4,8 @@ namespace ZnLib\Telegram\Domain\Actions;
 
 use danog\MadelineProto\APIFactory;
 use danog\MadelineProto\EventHandler;
-use ZnCore\Base\Libs\Env\Enums\OsFamilyEnum;
-use ZnCore\Base\Libs\Env\Helpers\OsHelper;
+use ZnCore\Base\Env\Enums\OsFamilyEnum;
+use ZnCore\Base\Env\Helpers\OsHelper;
 use ZnLib\Telegram\Domain\Base\BaseAction;
 use ZnLib\Telegram\Domain\Entities\MessageEntity;
 use ZnLib\Telegram\Domain\Entities\RequestEntity;

@@ -4,7 +4,7 @@
 namespace ZnLib\Telegram\Domain\Entities;
 
 
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
+use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
 
 class ResponseEntity
 {

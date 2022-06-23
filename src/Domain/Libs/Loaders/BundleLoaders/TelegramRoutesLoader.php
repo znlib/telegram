@@ -2,7 +2,7 @@
 
 namespace ZnLib\Telegram\Domain\Libs\Loaders\BundleLoaders;
 
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
+use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
 use ZnCore\Base\Libs\Container\Helpers\ContainerHelper;
 use ZnCore\Base\Libs\App\Loaders\BundleLoaders\BaseLoader;
 

@@ -6,7 +6,7 @@ use danog\MadelineProto\APIFactory;
 use ZnLib\Telegram\Domain\Base\BaseAction;
 use ZnLib\Telegram\Domain\Entities\MessageEntity;
 use ZnLib\Telegram\Domain\Handlers\BaseInputMessageEventHandler;
-use ZnCore\Base\Legacy\Yii\Helpers\ArrayHelper;
+use ZnCore\Base\Libs\Arr\Helpers\ArrayHelper;
 
 class HelpAction extends BaseAction
 {

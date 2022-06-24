@@ -2,27 +2,21 @@
 
 namespace ZnLib\Telegram\Domain\Libs\Loaders\BundleLoaders;
 
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\Container\Helpers\ContainerHelper;
 use ZnCore\Base\App\Loaders\BundleLoaders\BaseLoader;
+use ZnCore\Base\Arr\Helpers\ArrayHelper;
 
 class TelegramRoutesLoader extends BaseLoader
 {
 
-    public function loadAll(array $bundles): array
+    public function loadAll(array $bundles): void
     {
         $config = [];
         foreach ($bundles as $bundle) {
             $containerConfigList = $this->load($bundle);
-            if($containerConfigList) {
+            if ($containerConfigList) {
                 $config = ArrayHelper::merge($config, $containerConfigList);
-                /*foreach ($containerConfigList as $containerConfig) {
-                    $requiredConfig = require($containerConfig);
-                    $config = ArrayHelper::merge($config, $requiredConfig);
-                }*/
             }
         }
         $this->getConfigManager()->set('telegramRoutes', $config);
-        return [$this->getName() => $config];
     }
 }

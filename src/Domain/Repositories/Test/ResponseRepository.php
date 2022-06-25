@@ -8,7 +8,7 @@ use ZnLib\Telegram\Domain\Entities\ResponseEntity;
 use ZnLib\Telegram\Domain\Interfaces\Repositories\ResponseRepositoryInterface;
 use ZnLib\Telegram\Domain\Services\RequestService;
 use ZnCore\Domain\Entity\Helpers\EntityHelper;
-use ZnCore\Base\Store\StoreFile;
+use ZnLib\Components\Store\StoreFile;
 
 class ResponseRepository implements ResponseRepositoryInterface
 {

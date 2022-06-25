@@ -3,7 +3,7 @@
 
 namespace ZnLib\Telegram\Domain\Repositories\File;
 
-use ZnCore\Base\Store\StoreFile;
+use ZnLib\Components\Store\StoreFile;
 
 class StoreRepository
 {

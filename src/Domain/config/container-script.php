@@ -15,7 +15,7 @@ return [
         RouteService::class => function (ContainerInterface $container) {
             /** @var ConfigManagerInterface $configManager */
             $configManager = $container->get(ConfigManagerInterface::class);
-            $telegramRoutes = $configManager->get('telegramRoutes');
+            $telegramRoutes = $configManager->get('telegramRoutes', []);
             $routeService = new RouteService();
             $routes = [];
             foreach ($telegramRoutes as $containerConfig) {

@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 class UpdatesRepository
 {
 
-    public function all(string $token, int $lastId, int $timeout) {
+    public function findAll(string $token, int $lastId, int $timeout) {
         $queryParams = [];
         if ($lastId) {
             $queryParams['offset'] = $lastId;

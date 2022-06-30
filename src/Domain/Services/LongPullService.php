@@ -60,11 +60,11 @@ class LongPullService
         $this->botService->authByToken($token);
     }
 
-    public function all() {
+    public function findAll() {
         $lastId = $this->storeRepository->getLastId();
         $token = $this->configRepository->getBotToken();
         $timeout = $this->configRepository->getLongpullTimeout();
-        $updates = $this->updatesRepository->all($token, $lastId + 1, $timeout);
+        $updates = $this->updatesRepository->findAll($token, $lastId + 1, $timeout);
         return $updates;
     }
     

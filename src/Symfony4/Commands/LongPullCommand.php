@@ -69,7 +69,7 @@ class LongPullCommand extends Command
         if (EnvHelper::isDebug()) {
             $output->writeln('<fg=white>wait...</>');
         }
-        $updates = $this->longPullService->all();
+        $updates = $this->longPullService->findAll();
         if ($updates) {
             //$output->writeln('<fg=green>has updates</>');
             foreach ($updates as $update) {

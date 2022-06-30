@@ -40,7 +40,7 @@ class ResponseRepository implements ResponseRepositoryInterface
         $store->save($collection);
     }
 
-    public function all(int $botId, int $chatId)
+    public function findAll(int $botId, int $chatId)
     {
         $file = $this->fileName($botId, $chatId);
         $store = new StoreFile($file);

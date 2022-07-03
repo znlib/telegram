@@ -2,7 +2,7 @@
 
 namespace ZnLib\Telegram\Symfony4\Commands;
 
-use Illuminate\Container\Container;
+use ZnCore\Base\Container\Libs\Container;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

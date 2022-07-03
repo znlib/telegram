@@ -2,7 +2,7 @@
 
 namespace ZnLib\Telegram\Domain\Facades;
 
-use Illuminate\Container\Container;
+use ZnCore\Base\Container\Libs\Container;
 use ZnCore\Base\Container\Helpers\ContainerHelper;
 use ZnLib\Telegram\Domain\Interfaces\Repositories\ResponseRepositoryInterface;
 use ZnLib\Telegram\Domain\Repositories\Telegram\ResponseRepository;

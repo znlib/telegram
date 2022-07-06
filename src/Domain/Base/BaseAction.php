@@ -2,8 +2,8 @@
 
 namespace ZnLib\Telegram\Domain\Base;
 
-use ZnCore\Base\Container\Libs\Container;
-use ZnCore\Base\Container\Helpers\ContainerHelper;
+use ZnCore\Container\Libs\Container;
+use ZnCore\Container\Helpers\ContainerHelper;
 use ZnLib\Telegram\Domain\Entities\RequestEntity;
 use ZnLib\Telegram\Domain\Services\ResponseService;
 use ZnLib\Telegram\Domain\Services\SessionService;

@@ -2,12 +2,12 @@
 
 namespace ZnLib\Telegram\Symfony4\Commands;
 
-use ZnCore\Base\Container\Libs\Container;
+use ZnCore\Container\Libs\Container;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use ZnCore\Base\Container\Helpers\ContainerHelper;
+use ZnCore\Container\Helpers\ContainerHelper;
 use ZnLib\Telegram\Domain\Services\BotService;
 use ZnLib\Telegram\Domain\Services\ResponseService;
 

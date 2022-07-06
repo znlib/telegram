@@ -1,8 +1,8 @@
 <?php
 
 use Psr\Container\ContainerInterface;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
-use ZnCore\Base\Env\Helpers\EnvHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
+use ZnCore\Env\Helpers\EnvHelper;
 use ZnCore\Base\ConfigManager\Interfaces\ConfigManagerInterface;
 use ZnLib\Telegram\Domain\Interfaces\Repositories\ResponseRepositoryInterface;
 use ZnLib\Telegram\Domain\Repositories\File\ConfigRepository;

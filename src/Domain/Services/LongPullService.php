@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\RequestOptions;
 use Psr\Log\LoggerInterface;
 use ZnCore\Contract\Common\Exceptions\InternalServerErrorException;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnCore\Entity\Helpers\EntityHelper;
 use ZnLib\Telegram\Domain\Helpers\RequestHelper;
 use ZnLib\Telegram\Domain\Repositories\File\ConfigRepository;

@@ -2,8 +2,8 @@
 
 namespace ZnLib\Telegram\Domain\Libs\Loaders\BundleLoaders;
 
-use ZnCore\Base\Bundle\Base\BaseLoader;
-use ZnCore\Base\Arr\Helpers\ArrayHelper;
+use ZnCore\Bundle\Base\BaseLoader;
+use ZnCore\Arr\Helpers\ArrayHelper;
 
 class TelegramRoutesLoader extends BaseLoader
 {

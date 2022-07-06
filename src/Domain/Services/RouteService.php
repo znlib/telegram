@@ -4,10 +4,10 @@ namespace ZnLib\Telegram\Domain\Services;
 
 use danog\MadelineProto\APIFactory;
 use ZnCore\Container\Libs\Container;
-use ZnCore\Base\Instance\Helpers\ClassHelper;
+use ZnCore\Instance\Helpers\ClassHelper;
 use ZnCore\Base\ConfigManager\Interfaces\ConfigManagerInterface;
 use ZnCore\Container\Helpers\ContainerHelper;
-use ZnCore\Base\Instance\Libs\InstanceProvider;
+use ZnCore\Instance\Libs\InstanceProvider;
 use ZnLib\Telegram\Domain\Base\BaseAction;
 use ZnLib\Telegram\Domain\Entities\RequestEntity;
 use ZnLib\Telegram\Domain\Interfaces\MatcherInterface;

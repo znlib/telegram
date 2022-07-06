@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Lock\Exception\LockAcquiringException;
 use Symfony\Component\Lock\LockFactory;
-use ZnCore\Base\Env\Helpers\EnvHelper;
+use ZnCore\Env\Helpers\EnvHelper;
 use ZnCore\Container\Traits\ContainerAwareTrait;
 use ZnLib\Console\Symfony4\Traits\IOTrait;
 use ZnLib\Console\Symfony4\Traits\LockTrait;

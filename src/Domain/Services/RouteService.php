@@ -5,7 +5,7 @@ namespace ZnLib\Telegram\Domain\Services;
 use danog\MadelineProto\APIFactory;
 use ZnCore\Container\Libs\Container;
 use ZnCore\Instance\Helpers\ClassHelper;
-use ZnCore\Base\ConfigManager\Interfaces\ConfigManagerInterface;
+use ZnCore\ConfigManager\Interfaces\ConfigManagerInterface;
 use ZnCore\Container\Helpers\ContainerHelper;
 use ZnCore\Instance\Libs\InstanceProvider;
 use ZnLib\Telegram\Domain\Base\BaseAction;

@@ -3,7 +3,7 @@
 use Psr\Container\ContainerInterface;
 use ZnCore\Arr\Helpers\ArrayHelper;
 use ZnCore\Env\Helpers\EnvHelper;
-use ZnCore\Base\ConfigManager\Interfaces\ConfigManagerInterface;
+use ZnCore\ConfigManager\Interfaces\ConfigManagerInterface;
 use ZnLib\Telegram\Domain\Interfaces\Repositories\ResponseRepositoryInterface;
 use ZnLib\Telegram\Domain\Repositories\File\ConfigRepository;
 use ZnLib\Telegram\Domain\Repositories\Telegram\ResponseRepository as TelegramResponseRepository;

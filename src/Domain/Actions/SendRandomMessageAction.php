@@ -5,6 +5,7 @@ namespace ZnLib\Telegram\Domain\Actions;
 use danog\MadelineProto\APIFactory;
 use ZnLib\Telegram\Domain\Base\BaseAction;
 use ZnLib\Telegram\Domain\Entities\MessageEntity;
+use ZnLib\Telegram\Domain\Entities\RequestEntity;
 
 class SendRandomMessageAction extends BaseAction
 {
@@ -17,7 +18,7 @@ class SendRandomMessageAction extends BaseAction
         $this->responseList = $responseList;
     }
 
-    public function run(MessageEntity $messageEntity)
+    public function run(RequestEntity $messageEntity)
     {
         $count = count($this->responseList);
         $randIndex = mt_rand(0, $count - 1);

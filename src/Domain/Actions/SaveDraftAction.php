@@ -5,6 +5,7 @@ namespace ZnLib\Telegram\Domain\Actions;
 use danog\MadelineProto\APIFactory;
 use ZnLib\Telegram\Domain\Base\BaseAction;
 use ZnLib\Telegram\Domain\Entities\MessageEntity;
+use ZnLib\Telegram\Domain\Entities\RequestEntity;
 use ZnLib\Telegram\Domain\Entities\ResponseEntity;
 
 class SaveDraftAction extends BaseAction
@@ -18,7 +19,7 @@ class SaveDraftAction extends BaseAction
         $this->text = $text;
     }
 
-    public function run(MessageEntity $messageEntity)
+    public function run(RequestEntity $messageEntity)
     {
         $responseEntity = new ResponseEntity;
         $responseEntity->setUserId($messageEntity->getUserId());
@@ -30,5 +31,4 @@ class SaveDraftAction extends BaseAction
             'message' => $this->text,
         ]);*/
     }
-
 }

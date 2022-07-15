@@ -5,6 +5,7 @@ namespace ZnLib\Telegram\Domain\Actions;
 use danog\MadelineProto\APIFactory;
 use ZnLib\Telegram\Domain\Base\BaseAction;
 use ZnLib\Telegram\Domain\Entities\MessageEntity;
+use ZnLib\Telegram\Domain\Entities\RequestEntity;
 use ZnLib\Telegram\Domain\Handlers\BaseInputMessageEventHandler;
 use ZnCore\Arr\Helpers\ArrayHelper;
 
@@ -20,7 +21,7 @@ class HelpAction extends BaseAction
         $this->eventHandler = $eventHandler;
     }
 
-    public function run(MessageEntity $messageEntity)
+    public function run(RequestEntity $messageEntity)
     {
         $definitions = $this->eventHandler->definitions($this->response->getApi());
         $lines = [];

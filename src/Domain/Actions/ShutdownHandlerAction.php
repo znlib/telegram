@@ -6,6 +6,7 @@ use danog\MadelineProto\APIFactory;
 use danog\MadelineProto\EventHandler;
 use ZnLib\Telegram\Domain\Base\BaseAction;
 use ZnLib\Telegram\Domain\Entities\MessageEntity;
+use ZnLib\Telegram\Domain\Entities\RequestEntity;
 
 class ShutdownHandlerAction extends BaseAction
 {
@@ -18,7 +19,7 @@ class ShutdownHandlerAction extends BaseAction
         $this->eventHandler = $eventHandler;
     }
 
-    public function run(MessageEntity $messageEntity)
+    public function run(RequestEntity $messageEntity)
     {
         $this->eventHandler->stop();
     }

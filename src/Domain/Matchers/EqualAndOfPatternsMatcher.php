@@ -25,5 +25,4 @@ class EqualAndOfPatternsMatcher implements MatcherInterface
         }
         return false;
     }
-
 }

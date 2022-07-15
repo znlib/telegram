@@ -8,7 +8,7 @@ use ZnLib\Telegram\Domain\Entities\ResponseEntity;
 use ZnLib\Telegram\Domain\Helpers\HttpHelper;
 use ZnLib\Telegram\Domain\Interfaces\Repositories\ResponseRepositoryInterface;
 use danog\MadelineProto\Exception;
-use ZnCore\Entity\Helpers\EntityHelper;
+use ZnDomain\Entity\Helpers\EntityHelper;
 
 class ResponseRepository implements ResponseRepositoryInterface
 {

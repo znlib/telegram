@@ -2,6 +2,7 @@
 
 namespace ZnLib\Telegram\Domain\Facades;
 
+use ZnCore\Container\Interfaces\ContainerConfiguratorInterface;
 use ZnCore\Container\Libs\Container;
 use ZnCore\Container\Helpers\ContainerHelper;
 use ZnLib\Telegram\Domain\Interfaces\Repositories\ResponseRepositoryInterface;
@@ -18,7 +19,9 @@ class BotFacade
         /** @var Container $container */
         $container = ContainerHelper::getContainer();
 
-        $containerConfigurator = ContainerHelper::getContainerConfiguratorByContainer($container);
+        /** @var ContainerConfiguratorInterface $containerConfigurator */
+        $containerConfigurator = $container->get(ContainerConfiguratorInterface::class);
+//        $containerConfigurator = ContainerHelper::getContainerConfiguratorByContainer($container);
         $containerConfigurator->singleton(ResponseRepositoryInterface::class, ResponseRepository::class);
         $containerConfigurator->singleton(BotService::class, BotService::class);
 
